@@ -35,18 +35,17 @@ initLogoHover(document.querySelector('.logo'));
 initHeader();
 initSpace();
 initGallery();
-const tourReady = initTour();
+const startTour = initTour();
 
 const lenis = new Lenis({ autoRaf: true });
 lenis.on('scroll', ScrollTrigger.update);
 lenis.stop();
 document.documentElement.classList.add('is-loading');
 
-runLoader(Promise.all([document.fonts.ready, tourReady])).then(async () => {
+runLoader(document.fonts.ready).then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis.start();
   initReveals();
   gsap.from('.hero [data-reveal]', { y: 40, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out' });
-  const loadRest = await tourReady;
-  loadRest();
+  startTour();
 });

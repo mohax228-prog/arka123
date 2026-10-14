@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="img/tour/v1/0001.webp" />
+  <link rel="preload" as="image" href="video/tour-poster.webp" />
 </head>
 <body>
   <div id="loader"></div>
@@ -30,7 +30,7 @@
   <main>
     <section class="tour hero" aria-label="Экскурсия по АРКА 123">
       <div class="tour-sticky">
-        <canvas aria-hidden="true"></canvas>
+        <video src="video/tour.mp4" poster="video/tour-poster.webp" muted playsinline preload="auto" aria-hidden="true"></video>
         <div class="tour-shade"></div>
         <div class="tour-step hero-content">
           <div class="hero-kicker" data-reveal>Минск · ул. Мстиславца, 10 · 123 м²</div>
@@ -41,7 +41,7 @@
         <div class="tour-step"><h2>Алина встретит вас у входа</h2><p>Хозяйка пространства покажет зал и поможет подготовить всё к мероприятию.</p></div>
         <div class="tour-step"><h2>123 м² света и воздуха</h2><p>Паркет, потолки до 4,5&nbsp;м и зал, который расставим под ваш формат.</p></div>
         <div class="tour-step"><h2>Окна 4×3,5 метра</h2><p>Два огромных арочных окна — естественный свет весь день.</p></div>
-        <div class="tour-step"><h2>Вид, который запоминают</h2><p>За окном — Национальная библиотека. Гостям легко найти: «напротив Библиотеки».</p></div>
+        <button class="tour-replay" type="button">↻ Смотреть снова</button>
         <div class="tour-hint" aria-hidden="true">Листайте вниз</div>
       </div>
     </section>

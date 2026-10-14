@@ -70,9 +70,9 @@ img { display: block; max-width: 100%; }
 @media (max-width: 860px) { .nav { display: none; } .header .btn { padding: 11px 18px; } }
 
 /* ---------- Первый экран: экскурсия при прокрутке ---------- */
-.tour { position: relative; height: 700vh; color: #fff; background: var(--navy); }
+.tour { position: relative; height: 100svh; color: #fff; background: var(--navy); }
 .tour-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-.tour canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tour video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .tour-shade {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(20, 30, 40, 0.5) 0%, rgba(20, 30, 40, 0) 30%, rgba(20, 30, 40, 0.15) 55%, rgba(20, 30, 40, 0.8) 100%);
@@ -82,6 +82,13 @@ img { display: block; max-width: 100%; }
   max-width: 760px;
 }
 .tour-step:not(.hero-content) { opacity: 0; }
+.tour-replay {
+  position: absolute; right: var(--gutter); top: 90px; visibility: hidden; opacity: 0;
+  padding: 10px 18px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 999px;
+  background: rgba(20, 30, 40, 0.35); backdrop-filter: blur(6px); color: #fff;
+  font: 600 14px/1 var(--font-head); cursor: pointer;
+}
+.tour-replay:hover { background: rgba(20, 30, 40, 0.6); }
 .tour-step h2 { font: 800 clamp(34px, 5.4vw, 80px)/1 var(--font-head); margin-bottom: 14px; }
 .tour-step p { max-width: 46ch; font-size: clamp(16px, 1.4vw, 20px); opacity: 0.9; }
 .hero-kicker { font: 600 14px/1 var(--font-head); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
