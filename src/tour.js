@@ -10,13 +10,14 @@ gsap.registerPlugin(ScrollTrigger);
 //  - video: покадровая последовательность из AI-видео (public/img/tour/<name>/NNNN.webp).
 // weight — какую долю прокрутки занимает план.
 const SHOTS = [
-  { video: 'img/tour/v1', count: 78, weight: 1.6 },
-  { still: 'img/tour/v1/0078.webp', fx: 0.62, fy: 0.36, weight: 0.8, zoom: 0.35, continues: true },
+  { video: 'img/tour/v1', count: 78, weight: 1.4 },
+  { video: 'img/tour/v2', count: 78, weight: 1.4 },
+  { still: 'img/tour/v2/0078.webp', fx: 0.55, fy: 0.4, weight: 0.6, zoom: 0.3, continues: true },
   { still: 'img/tour/k4.webp', fx: 0.5, fy: 0.42, weight: 1, zoom: 0.12 },
 ];
 
 // Подписи: [появление, исчезновение] в долях всей прокрутки секции.
-const CAPTIONS = [null, [0.06, 0.2], [0.27, 0.4], [0.46, 0.6], [0.78, null]];
+const CAPTIONS = [null, [0.085, 0.18], [0.22, 0.33], [0.46, 0.6], [0.8, null]];
 
 const loadImage = (src) =>
   new Promise((resolve) => {
@@ -131,7 +132,7 @@ export async function initTour() {
       },
     },
   });
-  tl.to(steps[0], { opacity: 0, y: -40, duration: 0.06 }, 0.04);
+  tl.to(steps[0], { opacity: 0, y: -40, duration: 0.05 }, 0.02);
   steps.forEach((step, i) => {
     if (!CAPTIONS[i]) return;
     const [show, hide] = CAPTIONS[i];

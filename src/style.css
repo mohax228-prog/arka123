@@ -70,7 +70,7 @@ img { display: block; max-width: 100%; }
 @media (max-width: 860px) { .nav { display: none; } .header .btn { padding: 11px 18px; } }
 
 /* ---------- Первый экран: экскурсия при прокрутке ---------- */
-.tour { position: relative; height: 600vh; color: #fff; background: var(--navy); }
+.tour { position: relative; height: 700vh; color: #fff; background: var(--navy); }
 .tour-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; }
 .tour canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .tour-shade {
