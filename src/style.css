@@ -49,7 +49,9 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   padding: 14px var(--gutter);
   color: #fff;
+  transition: background 0.3s, padding 0.3s, backdrop-filter 0.3s;
 }
+.header.is-scrolled { background: rgba(34, 50, 63, 0.88); backdrop-filter: blur(10px); padding-block: 10px; }
 .logo { display: inline-flex; align-items: center; gap: 12px; }
 .logo .mark { width: 44px; height: 50px; background: var(--paper); border-radius: 22px 22px 3px 3px; padding: 3px 3px 0; }
 .logo .mark .digit { transform-box: fill-box; }
@@ -89,3 +91,121 @@ img { display: block; max-width: 100%; }
 
 .section { padding: clamp(64px, 10vw, 140px) var(--gutter); }
 .section h2 { font: 800 clamp(30px, 4vw, 56px)/1.05 var(--font-head); color: var(--navy); margin-bottom: 20px; }
+
+.kicker { font: 700 13px/1 var(--font-head); letter-spacing: 0.16em; text-transform: uppercase; color: var(--sun); margin-bottom: 16px; }
+.section .kicker { color: #c98a3a; }
+.lead { max-width: 60ch; color: var(--muted); margin-bottom: 32px; }
+
+/* ---------- Об АРКА 123 ---------- */
+.about { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.about-text p { color: var(--muted); margin-bottom: 16px; max-width: 56ch; }
+.host { position: relative; border-radius: 200px 200px 16px 16px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--cream); }
+.host img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 30%; }
+.host figcaption {
+  position: absolute; left: 16px; right: 16px; bottom: 16px;
+  padding: 16px 20px; border-radius: 12px;
+  background: rgba(251, 248, 242, 0.92); backdrop-filter: blur(6px);
+  font-size: 15px; color: var(--muted);
+}
+.host figcaption b { display: block; color: var(--navy); font: 700 16px/1.3 var(--font-head); margin-bottom: 4px; }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+
+/* ---------- Цифры ---------- */
+.facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--navy); color: #fff;
+}
+.fact { padding: clamp(28px, 4vw, 56px) var(--gutter); border-right: 1px solid rgba(255, 255, 255, 0.12); }
+.fact:last-child { border-right: 0; }
+.fact b { display: block; font: 800 clamp(36px, 5vw, 72px)/1 var(--font-head); color: var(--sun); }
+.fact span { display: block; margin-top: 8px; opacity: 0.8; font-size: 15px; }
+@media (max-width: 860px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact:nth-child(2) { border-right: 0; } }
+
+/* ---------- Помещение ---------- */
+.layouts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.layouts button {
+  padding: 12px 20px; border-radius: 999px; border: 1px solid rgba(34, 50, 63, 0.2);
+  background: transparent; color: var(--navy); font: 600 15px/1 var(--font-head); cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.layouts button:hover { border-color: var(--navy); }
+.layouts button.is-active { background: var(--navy); color: #fff; border-color: var(--navy); }
+.stage { position: relative; perspective: 1400px; }
+.stage-inner {
+  position: relative; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden;
+  transform-style: preserve-3d; will-change: transform; box-shadow: 0 30px 80px -30px rgba(20, 30, 40, 0.45);
+}
+.stage-inner img {
+  position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover;
+  opacity: 0; transition: opacity 0.6s ease;
+}
+.stage-inner img.is-active { opacity: 1; }
+.stage-caption { position: relative; min-height: 1.6em; margin-top: 16px; color: var(--muted); }
+.stage-caption span { position: absolute; left: 0; opacity: 0; transition: opacity 0.4s; }
+.stage-caption span.is-active { opacity: 1; }
+
+/* ---------- Услуги ---------- */
+.services { background: var(--cream); }
+.service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.service { background: var(--paper); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.service h3 { font: 700 20px/1.2 var(--font-head); color: var(--navy); }
+.service p { color: var(--muted); font-size: 15px; flex: 1; }
+.service b { font: 800 18px/1 var(--font-head); color: var(--navy); }
+@media (max-width: 960px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .service-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Тарифы ---------- */
+.tariff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; align-items: stretch; }
+.tariff {
+  position: relative; display: flex; flex-direction: column; gap: 18px;
+  padding: 36px 28px 28px; border: 1px solid rgba(34, 50, 63, 0.15); border-radius: 160px 160px 16px 16px;
+  text-align: center;
+}
+.tariff h3 { margin-top: 24px; font: 700 22px/1 var(--font-head); color: var(--navy); }
+.tariff .price { font: 800 48px/1 var(--font-head); color: var(--navy); }
+.tariff .price small { display: block; margin-top: 6px; font: 500 14px/1 var(--font-body); color: var(--muted); }
+.tariff ul { list-style: none; color: var(--muted); font-size: 15px; display: grid; gap: 8px; flex: 1; }
+.tariff-hit { background: var(--navy); border-color: var(--navy); }
+.tariff-hit h3, .tariff-hit .price { color: #fff; }
+.tariff-hit ul, .tariff-hit .price small { color: rgba(255, 255, 255, 0.75); }
+.badge {
+  position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+  padding: 6px 12px; border-radius: 999px; background: var(--sun); color: var(--navy);
+  font: 700 12px/1 var(--font-head); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.btn-ghost { background: transparent; border: 1px solid var(--navy); color: var(--navy); }
+.btn-ghost:hover { background: var(--navy); color: #fff; }
+@media (max-width: 860px) { .tariff-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Галерея ---------- */
+.gallery-grid { display: grid; grid-auto-flow: dense; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 10px; margin-top: 32px; }
+.gallery-grid button { padding: 0; border: 0; border-radius: 12px; overflow: hidden; cursor: zoom-in; background: var(--cream); }
+.gallery-grid button:nth-child(5n + 1) { grid-column: span 2; grid-row: span 2; }
+.gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.gallery-grid button:hover img { transform: scale(1.05); }
+@media (max-width: 860px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; } }
+.lightbox {
+  position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px;
+  background: rgba(15, 22, 29, 0.92); cursor: zoom-out;
+}
+.lightbox img { max-height: 90vh; border-radius: 12px; }
+
+/* ---------- Отзывы ---------- */
+.reviews { background: var(--cream); }
+.review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.review { background: var(--paper); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+.review p { flex: 1; }
+.review cite { font: 600 14px/1.3 var(--font-head); font-style: normal; color: var(--navy); }
+@media (max-width: 860px) { .review-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Футер ---------- */
+.footer { background: var(--navy); color: rgba(255, 255, 255, 0.8); padding: clamp(64px, 10vw, 120px) var(--gutter) 32px; }
+.footer-cta { text-align: center; margin-bottom: 64px; }
+.footer-cta h2 { font: 800 clamp(30px, 5vw, 64px)/1.05 var(--font-head); color: #fff; margin-bottom: 16px; }
+.footer-cta p { max-width: 50ch; margin: 0 auto 28px; }
+.footer-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 32px; align-items: start; }
+.footer-logo { font: 800 24px/1 var(--font-head); color: #fff; margin-bottom: 12px; }
+.footer a:not(.btn) { color: var(--sun); }
+.map { width: 100%; height: 240px; border: 0; border-radius: 16px; filter: grayscale(0.4); }
+.footer-bottom { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 13px; opacity: 0.6; }
+@media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr; } }

@@ -1,8 +1,10 @@
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import './style.css';
 import { markSVG } from './logo.js';
 import { runLoader } from './loader.js';
+import { initReveals, initHeader, initSpace, initGallery } from './sections.js';
 
 // Логотип в шапке: при наведении арка заново прорисовывается,
 // в окне загорается закат, цифры 1-2-3 по очереди подпрыгивают.
@@ -29,13 +31,18 @@ function initLogoHover(link) {
 }
 
 initLogoHover(document.querySelector('.logo'));
+initHeader();
+initSpace();
+initGallery();
 
 const lenis = new Lenis({ autoRaf: true });
+lenis.on('scroll', ScrollTrigger.update);
 lenis.stop();
 document.documentElement.classList.add('is-loading');
 
 runLoader().then(() => {
   document.documentElement.classList.remove('is-loading');
   lenis.start();
+  initReveals();
   gsap.from('.hero [data-reveal]', { y: 40, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out' });
 });

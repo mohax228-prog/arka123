@@ -19,7 +19,8 @@
     <nav class="nav">
       <a href="#about">О нас</a>
       <a href="#space">Помещение</a>
-      <a href="#services">Услуги и цены</a>
+      <a href="#services">Услуги</a>
+      <a href="#tariffs">Тарифы</a>
       <a href="#gallery">Галерея</a>
       <a href="#reviews">Отзывы</a>
     </nav>
@@ -37,11 +38,129 @@
       </div>
     </section>
 
-    <section class="section" id="about">
-      <h2>Об АРКА 123</h2>
-      <p>Сайт в разработке — здесь появятся блоки помещения, услуг, галереи, тарифов и отзывов.</p>
+    <section class="section about" id="about">
+      <div class="about-text">
+        <div class="kicker" data-reveal>Об АРКА 123</div>
+        <h2 data-reveal>Пространство, где хочется учиться и учить</h2>
+        <p data-reveal>АРКА 123 — светлый зал 123&nbsp;м² в доме-арке на ул. Мстиславца. Через два огромных арочных окна 4×3,5&nbsp;м открывается вид на Национальную библиотеку — самый узнаваемый ориентир Минска. Поэтому наш слоган простой: «Встречаемся напротив Библиотеки».</p>
+        <p data-reveal>Мы сдаём зал под мастер-классы, семинары, тренинги, лекции и презентации. Мебель расставим под ваш формат, техника уже на месте — вам остаётся прийти и провести мероприятие.</p>
+      </div>
+      <figure class="host" data-reveal>
+        <img src="img/character/portrait.webp" alt="Алина — хозяйка пространства АРКА 123" loading="lazy" />
+        <figcaption>
+          <b>Алина, хозяйка пространства</b>
+          «Встречу вас у входа, покажу зал и помогу подготовить всё к вашему мероприятию».
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="facts" aria-label="Ключевые цифры">
+      <div class="fact" data-reveal><b data-count="123">123</b><span>м² площади</span></div>
+      <div class="fact" data-reveal><b>4×3,5</b><span>м — арочные окна</span></div>
+      <div class="fact" data-reveal><b>4,5</b><span>м — высота потолков</span></div>
+      <div class="fact" data-reveal><b data-count="70">70</b><span>гостей в формате лекции</span></div>
+    </section>
+
+    <section class="section space" id="space">
+      <div class="kicker" data-reveal>Наше помещение</div>
+      <h2 data-reveal>Один зал — любой формат</h2>
+      <p class="lead" data-reveal>Посмотрите, как выглядит зал пустым и как мы расставляем его под разные задачи.</p>
+      <div class="layouts" role="tablist" data-reveal>
+        <button class="is-active" role="tab" data-layout="empty">Пустой зал</button>
+        <button role="tab" data-layout="lecture">Мастер-класс</button>
+        <button role="tab" data-layout="table">Большой стол</button>
+        <button role="tab" data-layout="tables">Отдельные столы</button>
+      </div>
+      <div class="stage" data-reveal>
+        <div class="stage-inner">
+          <img class="is-active" data-layout="empty" src="img/photos/6.webp" alt="Пустой зал с арочными окнами" />
+          <img data-layout="lecture" src="img/photos/5.webp" alt="Зал в формате мастер-класса" loading="lazy" />
+          <img data-layout="table" src="img/photos/1.webp" alt="Зал с рассадкой за большим столом" loading="lazy" />
+          <img data-layout="tables" src="img/photos/10.webp" alt="Зал с рассадкой за отдельными столами" loading="lazy" />
+        </div>
+        <div class="stage-caption">
+          <span data-layout="empty" class="is-active">123 м² свободного пространства, паркет, потолки 4,5 м</span>
+          <span data-layout="lecture">До 70 слушателей, проектор и экран 3 м</span>
+          <span data-layout="table">До 24 человек за общим столом — для воркшопов и стратегических сессий</span>
+          <span data-layout="tables">До 40 гостей за столами по 4–6 человек</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="kicker" data-reveal>Наши услуги и цены</div>
+      <h2 data-reveal>Всё необходимое уже в зале</h2>
+      <div class="service-grid">
+        <article class="service" data-reveal><h3>Аренда зала</h3><p>Почасовая аренда 123 м² с мебелью, климатом и Wi-Fi.</p><b>от 70 BYN/час</b></article>
+        <article class="service" data-reveal><h3>Проектор и экран</h3><p>Лазерный проектор Full HD, экран 3 м, кликер, HDMI и USB-C.</p><b>20 BYN</b></article>
+        <article class="service" data-reveal><h3>Звук и микрофоны</h3><p>Акустика и два радиомикрофона для лекций до 70 человек.</p><b>25 BYN</b></article>
+        <article class="service" data-reveal><h3>Кофе-брейк</h3><p>Кофе, чай, вода и выпечка от партнёрской кофейни на первом этаже.</p><b>от 12 BYN/гость</b></article>
+        <article class="service" data-reveal><h3>Флипчарт и маркеры</h3><p>Два флипчарта, маркерная доска, бумага и канцелярия.</p><b>10 BYN</b></article>
+        <article class="service" data-reveal><h3>Фото и видео</h3><p>Репортажная съёмка мероприятия на фоне арочных окон.</p><b>от 60 BYN/час</b></article>
+      </div>
+    </section>
+
+    <section class="section tariffs" id="tariffs">
+      <div class="kicker" data-reveal>Тарифы и услуги</div>
+      <h2 data-reveal>Выберите удобный формат</h2>
+      <div class="tariff-grid">
+        <article class="tariff" data-reveal>
+          <h3>Час</h3>
+          <div class="price">70 <small>BYN/час</small></div>
+          <ul><li>Минимум 2 часа</li><li>Мебель и Wi-Fi</li><li>Расстановка под формат</li></ul>
+          <a href="#contacts" class="btn btn-ghost">Забронировать</a>
+        </article>
+        <article class="tariff tariff-hit" data-reveal>
+          <span class="badge">Популярный</span>
+          <h3>Полдня</h3>
+          <div class="price">300 <small>BYN · 5 часов</small></div>
+          <ul><li>Проектор и экран включены</li><li>Флипчарт включён</li><li>Вода для гостей</li><li>Помощь администратора</li></ul>
+          <a href="#contacts" class="btn">Забронировать</a>
+        </article>
+        <article class="tariff" data-reveal>
+          <h3>День</h3>
+          <div class="price">520 <small>BYN · 10 часов</small></div>
+          <ul><li>Всё из тарифа «Полдня»</li><li>Звук и микрофоны</li><li>Уборка между сессиями</li><li>Скидка 10% на кофе-брейк</li></ul>
+          <a href="#contacts" class="btn btn-ghost">Забронировать</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="kicker" data-reveal>Фотогалерея</div>
+      <h2 data-reveal>Зал, окна и дом-арка</h2>
+      <div class="gallery-grid"></div>
+    </section>
+
+    <section class="section reviews" id="reviews">
+      <div class="kicker" data-reveal>Отзывы</div>
+      <h2 data-reveal>Что говорят организаторы</h2>
+      <div class="review-grid">
+        <blockquote class="review" data-reveal><p>«Проводили двухдневный тренинг для 40 менеджеров. Свет из окон — это отдельный вид удовольствия: никто не засыпал после обеда. Администратор помог со всей техникой».</p><cite>Ольга Ковалёва, HR-директор</cite></blockquote>
+        <blockquote class="review" data-reveal><p>«Снимали мастер-класс по керамике для блога. Арочные окна в кадре сделали за нас половину работы — картинка вышла как из журнала».</p><cite>Дмитрий Лис, студия «Глина»</cite></blockquote>
+        <blockquote class="review" data-reveal><p>«Гостям легко объяснить, куда идти: “напротив Библиотеки”. Удобная парковка, кофейня внизу, зал расставили ровно так, как мы просили».</p><cite>Анна Жук, организатор лекций</cite></blockquote>
+      </div>
     </section>
   </main>
+
+  <footer class="footer" id="contacts">
+    <div class="footer-cta">
+      <h2>Встречаемся напротив Библиотеки</h2>
+      <p>Оставьте заявку — перезвоним в течение 15 минут, ответим на вопросы и забронируем дату.</p>
+      <a href="tel:+375291231231" class="btn">+375 29 123-12-31</a>
+    </div>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">АРКА 123</div>
+        <p>Минск, ул. Мстиславца, 10<br />Вход с променада через арку</p>
+      </div>
+      <div>
+        <p>Ежедневно 8:00–23:00<br /><a href="mailto:hello@arka123.by">hello@arka123.by</a></p>
+      </div>
+      <iframe class="map" title="АРКА 123 на карте" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=27.6420%2C53.9270%2C27.6585%2C53.9345&amp;layer=mapnik&amp;marker=53.93078%2C27.65021"></iframe>
+    </div>
+    <div class="footer-bottom">© 2026 АРКА 123 · Учебный проект, компания вымышленная</div>
+  </footer>
 
   <script type="module" src="/src/main.js"></script>
 </body>
