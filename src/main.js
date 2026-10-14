@@ -5,6 +5,7 @@ import './style.css';
 import { markSVG } from './logo.js';
 import { runLoader } from './loader.js';
 import { initReveals, initHeader, initSpace, initGallery } from './sections.js';
+import { initTour } from './tour.js';
 
 // Логотип в шапке: при наведении арка заново прорисовывается,
 // в окне загорается закат, цифры 1-2-3 по очереди подпрыгивают.
@@ -34,6 +35,7 @@ initLogoHover(document.querySelector('.logo'));
 initHeader();
 initSpace();
 initGallery();
+initTour();
 
 const lenis = new Lenis({ autoRaf: true });
 lenis.on('scroll', ScrollTrigger.update);
