@@ -5,19 +5,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Фон-экскурсия: героиня встречает у стойки → ведёт по залу → подводит к окну → вид на Библиотеку.
 // Прокрутка управляет «камерой». Экскурсия состоит из планов (shots):
-//  - still: ключевой кадр, камера наезжает к точке фокуса (fx, fy) и перетекает в следующий план;
-//    continues — кадр совпадает с последним кадром предыдущего видео, растворение не нужно;
-//  - video: покадровая последовательность из AI-видео (public/img/tour/<name>/NNNN.webp).
+//  - video: покадровая последовательность из AI-видео (public/img/tour/<name>/NNNN.webp);
+//  - arch: финал — вокруг последнего кадра смыкается тёмная рамка в форме арки из логотипа,
+//    и в арке проявляется фото (вид на Библиотеку). Рифма с лоадером, где мы влетаем в сайт через арку.
 // weight — какую долю прокрутки занимает план.
 const SHOTS = [
   { video: 'img/tour/v1', count: 78, weight: 1.4 },
   { video: 'img/tour/v2', count: 78, weight: 1.4 },
-  { video: 'img/tour/v3', count: 78, weight: 1.4 },
-  { still: 'img/tour/v3/0078.webp', fx: 0.55, fy: 0.4, weight: 0.6, zoom: 0.08, continues: true },
+  { video: 'img/tour/v3', count: 50, weight: 1 },
+  { arch: 'img/tour/library.webp', fy: 0.38, weight: 1.2 },
 ];
 
 // Подписи: [появление, исчезновение] в долях всей прокрутки секции.
-const CAPTIONS = [null, [0.07, 0.16], [0.2, 0.29], [0.42, 0.55], [0.78, null]];
+const CAPTIONS = [null, [0.085, 0.18], [0.22, 0.32], [0.46, 0.6], [0.8, null]];
+
+const NAVY = '#22323F';
+const SUN = '#F3B76B';
 
 const loadImage = (src) =>
   new Promise((resolve) => {
@@ -30,21 +33,32 @@ const loadImage = (src) =>
 
 const frameUrl = (shot, i) => `${shot.video}/${String(i + 1).padStart(4, '0')}.webp`;
 const smooth = (x) => x * x * (3 - 2 * x);
+const clamp01 = (x) => Math.min(1, Math.max(0, x));
 
-// Рисует картинку по принципу object-fit: cover с масштабом и смещением к точке фокуса.
-function drawCover(ctx, img, w, h, scale = 1, fx = 0.5, fy = 0.5, alpha = 1) {
+// Рисует картинку в прямоугольник (x, y, w, h) по принципу object-fit: cover.
+function drawCover(ctx, img, x, y, w, h, scale = 1, fy = 0.5, alpha = 1) {
   if (!img) return;
   const s = Math.max(w / img.width, h / img.height) * scale;
   const dw = img.width * s;
   const dh = img.height * s;
-  const k = ((scale - 1) / scale) * 1.6;
-  const dx = w / 2 - dw * (0.5 + (fx - 0.5) * k);
-  const dy = h / 2 - dh * (0.5 + (fy - 0.5) * k);
   ctx.globalAlpha = alpha;
-  ctx.drawImage(img, Math.min(0, Math.max(w - dw, dx)), Math.min(0, Math.max(h - dh, dy)), dw, dh);
+  ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) * fy, dw, dh);
   ctx.globalAlpha = 1;
 }
 
+// Контур арки как в логотипе: прямые стенки и полукруглый верх.
+function archPath(ctx, x, y, w, h) {
+  const r = w / 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y + h);
+  ctx.lineTo(x, y + r);
+  ctx.arc(x + r, y + r, r, Math.PI, 0);
+  ctx.lineTo(x + w, y + h);
+  ctx.closePath();
+}
+
+// Готовит экскурсию: грузит только то, что нужно для первого экрана, и возвращает
+// функцию, которая догружает остальные кадры (её вызывают после лоадера).
 export async function initTour() {
   const root = document.querySelector('.tour');
   const canvas = root.querySelector('canvas');
@@ -53,28 +67,10 @@ export async function initTour() {
   let h = 0;
   let progress = 0;
 
-  // Загрузка: статичные кадры и первый/последний кадр каждого видео — сразу, остальное фоном.
-  await Promise.all(
-    SHOTS.map(async (shot) => {
-      if (shot.still) shot.img = await loadImage(shot.still);
-      else {
-        shot.frames = new Array(shot.count);
-        [shot.frames[0], shot.frames[shot.count - 1]] = await Promise.all([
-          loadImage(frameUrl(shot, 0)),
-          loadImage(frameUrl(shot, shot.count - 1)),
-        ]);
-      }
-    }),
-  );
-  (async () => {
-    for (const shot of SHOTS.filter((s) => s.video)) {
-      for (let step of [4, 1])
-        for (let i = 0; i < shot.count; i += step) if (!shot.frames[i]) shot.frames[i] = await loadImage(frameUrl(shot, i));
-    }
-  })();
+  for (const shot of SHOTS) if (shot.video) shot.frames = new Array(shot.count);
+  const firstShot = SHOTS[0];
+  firstShot.frames[0] = await loadImage(frameUrl(firstShot, 0));
 
-  const first = (shot) => shot.img || shot.frames[0];
-  const last = (shot) => shot.img || shot.frames[shot.count - 1];
   const videoFrame = (shot, t) => {
     let i = Math.round(t * (shot.count - 1));
     while (i > 0 && !shot.frames[i]) i--; // кадр ещё не загружен — показываем ближайший готовый
@@ -88,22 +84,48 @@ export async function initTour() {
     while (i < SHOTS.length - 1 && pos > SHOTS[i].weight) pos -= SHOTS[i++].weight;
     const shot = SHOTS[i];
     const t = Math.min(pos / shot.weight, 1);
-    const prev = SHOTS[i - 1];
-    const next = SHOTS[i + 1];
     ctx.clearRect(0, 0, w, h);
 
     if (shot.video) {
-      drawCover(ctx, videoFrame(shot, t), w, h);
+      drawCover(ctx, videoFrame(shot, t), 0, 0, w, h);
       return;
     }
-    // статичный план: камера наезжает
-    drawCover(ctx, shot.img, w, h, 1 + (shot.zoom ?? 0.45) * t, shot.fx, shot.fy);
-    // после видео — последний кадр видео растворяется в этом плане
-    if (prev?.video && !shot.continues && t < 0.4) drawCover(ctx, last(prev), w, h, 1, 0.5, 0.5, 1 - smooth(t / 0.4));
-    // в конце плана проявляется первый кадр следующего
-    if (next && t > 0.55) {
-      const e = smooth((t - 0.55) / 0.45);
-      drawCover(ctx, first(next), w, h, next.video ? 1.12 - 0.12 * e : 1.18 - 0.18 * e, next.fx, next.fy, e);
+
+    // Финал-арка. На широком экране арка справа (подпись слева), на узком — по центру сверху.
+    const prev = videoFrame(SHOTS[i - 1], 1);
+    const wide = w > h * 1.1;
+    const ah = wide ? h * 0.74 : h * 0.52;
+    const aw = Math.min(ah * 0.8, w * 0.84);
+    const cx = wide ? w * 0.68 : w / 2;
+    const cy = wide ? h * 0.52 : h * 0.4;
+    const close = smooth(clamp01(t / 0.6)); // рамка смыкается
+    const reveal = smooth(clamp01((t - 0.15) / 0.45)); // в арке проявляется вид
+    const grow = 1 + 3.2 * (1 - close); // в начале арка больше экрана — рамки не видно
+    const bw = aw * grow;
+    const bh = ah * grow;
+    const bx = cx - bw / 2;
+    const by = cy - bh / 2;
+
+    drawCover(ctx, prev, 0, 0, w, h);
+    ctx.fillStyle = NAVY;
+    ctx.globalAlpha = close;
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalAlpha = 1;
+
+    ctx.save();
+    archPath(ctx, bx, by, bw, bh);
+    ctx.clip();
+    drawCover(ctx, prev, 0, 0, w, h, 1, 0.5, 1 - reveal);
+    drawCover(ctx, shot.img, bx, by, bw, bh, 1.12 - 0.12 * t, shot.fy, reveal);
+    ctx.restore();
+
+    if (close > 0.05) {
+      archPath(ctx, bx, by, bw, bh);
+      ctx.strokeStyle = SUN;
+      ctx.globalAlpha = close;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
     }
   };
 
@@ -140,4 +162,17 @@ export async function initTour() {
     if (hide) tl.to(step, { opacity: 0, y: -40, duration: 0.05 }, hide);
   });
   tl.set({}, {}, 1); // таймлайн занимает всю прокрутку секции
+
+  // Догрузка: сначала каждый 4-й кадр по порядку экскурсии (видео уже «играет» рывками),
+  // затем остальные; фото для арки — после первого прохода.
+  return async () => {
+    const videos = SHOTS.filter((s) => s.video);
+    for (const shot of videos)
+      for (let i = 0; i < shot.count; i += 4) if (!shot.frames[i]) shot.frames[i] = await loadImage(frameUrl(shot, i));
+    const arch = SHOTS.find((s) => s.arch);
+    arch.img = await loadImage(arch.arch);
+    for (const shot of videos)
+      for (let i = 0; i < shot.count; i++) if (!shot.frames[i]) shot.frames[i] = await loadImage(frameUrl(shot, i));
+    render();
+  };
 }

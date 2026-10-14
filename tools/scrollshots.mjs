@@ -4,7 +4,7 @@ const [url, out, w = 1440, h = 900, ...ys] = process.argv.slice(2);
 const b = await chromium.launch({ channel: 'chrome' });
 const p = await b.newPage({ viewport: { width: +w, height: +h } });
 const errs = []; p.on('pageerror', e => errs.push(e.message));
-await p.goto(url); await p.waitForTimeout(6000);
+await p.goto(url); await p.waitForTimeout(12000);
 const shots = [];
 for (const y of ys) {
   await p.evaluate(y => window.scrollTo(0, y * innerHeight), +y);

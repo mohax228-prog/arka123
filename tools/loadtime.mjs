@@ -1,0 +1,14 @@
+import { chromium } from 'playwright-core';
+const [url, mbps = 10] = process.argv.slice(2);
+const b = await chromium.launch({ channel: 'chrome' });
+const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+const p = await ctx.newPage();
+const cdp = await ctx.newCDPSession(p);
+await cdp.send('Network.enable');
+await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 40, downloadThroughput: mbps * 125000, uploadThroughput: 2e5 });
+const t0 = Date.now();
+await p.goto(url, { waitUntil: 'commit' });
+p.on('load', () => console.log('window load at', (Date.now() - t0) / 1000, 's'));
+await p.waitForFunction(() => !document.getElementById('loader'), null, { timeout: 120000 }).catch(() => console.log('loader still visible after 120s'));
+console.log('loader gone at', (Date.now() - t0) / 1000, 's');
+await b.close();

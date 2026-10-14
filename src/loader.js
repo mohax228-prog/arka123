@@ -4,7 +4,9 @@ import { markSVG, prepDraw, WINDOW_PATH, WINDOW_CENTER } from './logo.js';
 // Лоадер: арка рисуется линией → в окне встаёт «закат» над библиотекой →
 // цифры 1-2-3 вырастают по очереди → счётчик доходит до 123 м² →
 // камера влетает в окно арки, и сквозь него открывается сайт.
-export function runLoader() {
+// ready — промис «первый экран готов» (шрифты и первый кадр экскурсии), а не полная загрузка страницы:
+// иначе лоадер ждал бы все кадры видео.
+export function runLoader(ready = Promise.resolve()) {
   const root = document.getElementById('loader');
   const S = 0.2; // масштаб знака в системе координат лоадера (viewBox 1000×1000, slice)
   const place = `translate(${500 - 625 * S} ${440 - 640 * S}) scale(${S})`;
@@ -35,7 +37,6 @@ export function runLoader() {
 
   const count = { v: 0 };
   const countEl = q('.loader-count b');
-  const pageLoaded = new Promise((r) => (document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true })));
 
   const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
   tl.set(q('.glow'), { yPercent: 100 })
@@ -52,7 +53,7 @@ export function runLoader() {
 
   return new Promise((resolve) => {
     tl.eventCallback('onComplete', async () => {
-      await pageLoaded;
+      await ready;
       const out = gsap.timeline({
         onComplete: () => {
           root.remove();
