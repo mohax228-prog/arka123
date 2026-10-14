@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>АРКА 123 — тестовое задание</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #22323f;
+      --cream: #f4efe6;
+      --paper: #fbf8f2;
+      --sun: #f3b76b;
+      --accent: #b8782e;
+      --ink: #1b2630;
+      --muted: #5e6b76;
+      --line: rgba(34, 50, 63, 0.14);
+      --card: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #151e26;
+        --cream: #1c2731;
+        --card: #1f2b36;
+        --ink: #e9e4da;
+        --muted: #9fa9b2;
+        --line: rgba(233, 228, 218, 0.14);
+        --accent: #f3b76b;
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: #151e26;
+      --cream: #1c2731;
+      --card: #1f2b36;
+      --ink: #e9e4da;
+      --muted: #9fa9b2;
+      --line: rgba(233, 228, 218, 0.14);
+      --accent: #f3b76b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 17px/1.6 'Roboto', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 56px 0 48px;
+    }
+    .brand { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .brand svg { width: 52px; height: 59px; flex: none; background: #fbf8f2; border-radius: 26px 26px 4px 4px; padding: 4px 4px 0; }
+    .brand span { font: 800 22px/1 'Manrope', sans-serif; letter-spacing: 0.02em; }
+    h1 { font: 800 clamp(30px, 6vw, 48px)/1.08 'Manrope', sans-serif; margin-bottom: 14px; }
+    .lead { color: rgba(255, 255, 255, 0.82); max-width: 60ch; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 999px;
+      font: 700 15px/1 'Manrope', sans-serif; text-decoration: none;
+    }
+    .links .primary { background: var(--sun); color: var(--navy); }
+    .links .ghost { border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .chips span {
+      padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.1);
+      font: 600 13px/1.2 'Manrope', sans-serif; color: rgba(255, 255, 255, 0.9);
+    }
+
+    main { padding: 48px 0 24px; }
+    section { padding: 28px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type { border-bottom: 0; }
+    .num { font: 800 13px/1 'Manrope', sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    h2 { font: 800 clamp(22px, 4vw, 30px)/1.15 'Manrope', sans-serif; margin-bottom: 14px; }
+    h3 { font: 700 17px/1.3 'Manrope', sans-serif; margin: 20px 0 8px; }
+    p { margin-bottom: 12px; }
+    ul, ol { padding-left: 22px; margin-bottom: 12px; }
+    li { margin-bottom: 6px; }
+    li::marker { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .note {
+      background: var(--cream); border-left: 3px solid var(--sun);
+      padding: 14px 18px; border-radius: 0 12px 12px 0; margin: 16px 0 4px;
+    }
+    .note b { font-family: 'Manrope', sans-serif; }
+
+    table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; }
+    td { padding: 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+    td:first-child { width: 72px; font: 700 15px/1.6 'Manrope', sans-serif; color: var(--accent); white-space: nowrap; }
+    .total { font: 800 clamp(32px, 6vw, 44px)/1 'Manrope', sans-serif; margin-bottom: 4px; }
+
+    .tools { display: grid; gap: 10px; list-style: none; padding: 0; }
+    .tools li {
+      display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline;
+      background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin: 0;
+    }
+    .tools b { font: 700 16px/1.3 'Manrope', sans-serif; }
+    .tools .plan { font: 700 13px/1 'Manrope', sans-serif; color: var(--accent); white-space: nowrap; }
+    .tools .what { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+
+    footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <svg viewBox="270 240 712 806" aria-hidden="true" fill="none" stroke="#22323F" stroke-width="54">
+          <path d="M465.5 1001 H315 V595 A310.5 310.5 0 0 1 936 595 V1001 H465.5" />
+          <path d="M465.5 1001 V562" />
+          <path fill="#22323F" stroke="none" d="M372 621 L422 562 H493 V621 Z" />
+          <path d="M540 662 V641 A61.5 61.5 0 0 1 663 641 C663 662 655 676 644 692 L540 840 V873 H669" />
+          <path stroke-linejoin="bevel" d="M704 585 H849 L759 714 A79 79 0 1 1 701 796" />
+        </svg>
+        <span>АРКА 123</span>
+      </div>
+      <h1>Тестовое задание на позицию вайбкодера</h1>
+      <p class="lead">Сайт под ключ для пространства АРКА 123 — зала 123 м² для мастер-классов и семинаров напротив Национальной библиотеки. Выполнены все 5 частей задания, включая опциональную часть №3. Сайт адаптирован под телефон и компьютер.</p>
+      <div class="links">
+        <a class="primary" href="https://mohax228-prog.github.io/arka123/" target="_blank" rel="noopener">Открыть сайт →</a>
+        <a class="ghost" href="https://github.com/mohax228-prog/arka123" target="_blank" rel="noopener">Исходный код</a>
+      </div>
+      <div class="chips">
+        <span>≈ 5,5 часа</span>
+        <span>0 ₽ вложений</span>
+        <span>5 из 5 заданий</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div class="num">Задание 1</div>
+      <h2>Анимация логотипа — «Войти через арку»</h2>
+      <p>Знак АРКА 123 — это арочное окно, главное преимущество помещения. Анимация рассказывает именно об этом.</p>
+      <h3>Лоадер при загрузке страницы</h3>
+      <ol>
+        <li>Контур арки прорисовывается одной линией, как карандашом архитектора.</li>
+        <li>В проёме арки встаёт тёплый свет, и в нём проступает силуэт Национальной библиотеки — вид из окна.</li>
+        <li>Цифры 1-2-3 вырастают по очереди. Единица поднимается из основания арки, как колонна.</li>
+        <li>Счётчик в углу считает не до 100%, а до <b>123 м²</b> — площади помещения.</li>
+        <li>Камера влетает в окно арки, и через проём открывается сайт. Посетитель буквально входит в пространство через арку.</li>
+      </ol>
+      <h3>При наведении на логотип в шапке</h3>
+      <p>Арка заново прорисовывается, в окне загорается свет, а цифры 1-2-3 по очереди подпрыгивают, как будто приветствуют гостя.</p>
+      <p class="muted">Знак перерисован вручную в SVG по исходному PNG. Анимация написана кодом (GSAP), без видео и GIF, поэтому весит несколько килобайт и остаётся чёткой на любом экране.</p>
+    </section>
+
+    <section>
+      <div class="num">Задание 2</div>
+      <h2>Фирменный персонаж — Алина</h2>
+      <p>Выбран путь №1 из ТЗ: <b>Алина, хозяйка пространства</b> — девушка славянской внешности, 30 лет, в строгом тёмно-синем костюме в цветах бренда, с брошью в виде логотипа.</p>
+      <ul>
+        <li>Портрет сгенерирован в Gemini, затем героиня перенесена в реальный интерьер помещения.</li>
+        <li>Брошь нейросети рисовали неточно, поэтому я заменил её на точную копию знака: серебро и тёмно-синяя эмаль, построены из векторного логотипа.</li>
+        <li>Алина встречает гостей в видео на первом экране, представлена в блоке «Об АРКА 123» и ведёт мастер-класс в варианте рассадки.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="num">Задание 3</div>
+      <h2>Объёмная демонстрация помещения</h2>
+      <ul>
+        <li><b>Видео-экскурсия</b> по залу на первом экране (подробнее в задании 4).</li>
+        <li><b>Блок «Наше помещение»</b> — переключатель из четырёх вариантов: пустой зал, мастер-класс с проектором и слушателями, большой общий стол, отдельные круглые столы.</li>
+      </ul>
+      <p>Все варианты сделаны на основе <b>одной реальной фотографии с одного ракурса</b>. При переключении стены, окна и часы стоят на месте, а меняется только мебель. Архитектура и планировка не изменены.</p>
+    </section>
+
+    <section>
+      <div class="num">Задание 4</div>
+      <h2>Герой бренда — видео</h2>
+      <p>Алина встречает гостя в зале, машет и улыбается, показывает на арочные окна, проводит через зал к большому окну и показывает вид.</p>
+      <ul>
+        <li><b>Один непрерывный дубль на 10 секунд, без монтажных склеек.</b> Сделан в Hailuo (MiniMax H3, режим Omni Reference) по пяти референсам: портрет героини, реальное фото зала и ключевые кадры с ней в этом зале.</li>
+        <li>Ролик — фон первого экрана. Он запускается автоматически после лоадера, подписи о помещении меняются синхронно с действием, в конце появляется кнопка «Смотреть снова».</li>
+        <li>На телефоне, где виден только узкий фрагмент кадра, кадр сдвигается следом за героиней, и она не выпадает из поля зрения.</li>
+        <li>Водяной знак сервиса удалён, видео сжато до 1,5 МБ.</li>
+      </ul>
+      <div class="note">
+        <b>Что пробовал и отбросил.</b> Сначала собирал ролик из коротких переходов «первый кадр → последний кадр» (Hailuo Start/End Frame). Нейросеть достраивала архитектуру между ракурсами: появлялись лишние окна и стены, на склейках было видно монтаж. Режим с несколькими референсами дал цельный дубль, в котором зал не меняется. Для сравнения сделал вариант в Vidu, но выбрал Hailuo: у него лицо ближе к персонажу и лучше видна брошь.
+      </div>
+    </section>
+
+    <section>
+      <div class="num">Задание 5</div>
+      <h2>Готовый сайт</h2>
+      <h3>Блоки</h3>
+      <p>Прелоадер, шапка, первый экран с видео, «Об АРКА 123», ключевые цифры, «Наше помещение» с вариантами рассадки, «Наши услуги и цены», «Тарифы» (выбранная карточка подсвечивается), фотогалерея с просмотром фото, отзывы, футер с контактами и картой.</p>
+      <h3>Фирменный стиль</h3>
+      <p>Тёмно-синий и кремовый из логотипа, мотив арки в рамке портрета, карточках тарифов и иконке. Шрифты Manrope и Roboto.</p>
+      <h3>Техника</h3>
+      <p>HTML, CSS и JavaScript, сборщик Vite, анимации GSAP, плавная прокрутка Lenis. Фото переведены в WebP: исходные 44 МБ превратились в 4 МБ. Хостинг — GitHub Pages.</p>
+      <p class="muted">Тексты, цены, отзывы и контакты придуманы: компания вымышленная, как и указано в ТЗ.</p>
+    </section>
+
+    <section>
+      <div class="num">Время</div>
+      <div class="total">≈ 5,5 часа</div>
+      <p class="muted">За один день, 14.10, включая ожидание генераций.</p>
+      <table>
+        <tr><td>~0,5 ч</td><td>Разбор ТЗ и материалов, план, проект, публикация</td></tr>
+        <tr><td>~0,5 ч</td><td>SVG-логотип, лоадер, анимация при наведении</td></tr>
+        <tr><td>~1 ч</td><td>Фирменный персонаж, брошь, кадры с героиней в помещении</td></tr>
+        <tr><td>~1 ч</td><td>Все блоки сайта, адаптив</td></tr>
+        <tr><td>~0,5 ч</td><td>Варианты рассадки зала</td></tr>
+        <tr><td>~2 ч</td><td>Видео с героем: генерации, отбор, монтаж, встраивание, доработки</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <div class="num">Инструменты</div>
+      <h2>Нейросети и подписки</h2>
+      <ul class="tools">
+        <li><b>Claude Code (Claude Opus 5.5)</b><span class="plan">Claude Pro</span><span class="what">Код сайта и анимаций, векторизация логотипа и броши, обработка видео и фото, промпты для генераций.</span></li>
+        <li><b>Google Gemini (Nano Banana)</b><span class="plan">Бесплатно</span><span class="what">Портрет персонажа.</span></li>
+        <li><b>ChatGPT (генерация изображений)</b><span class="plan">Бесплатно</span><span class="what">Героиня в реальном интерьере, ключевые кадры, варианты рассадки.</span></li>
+        <li><b>Hailuo AI (MiniMax H3)</b><span class="plan">Бесплатные кредиты</span><span class="what">Видео с героем.</span></li>
+        <li><b>Vidu</b><span class="plan">Бесплатно</span><span class="what">Альтернативный вариант видео для сравнения.</span></li>
+        <li><b>GitHub Pages</b><span class="plan">Бесплатно</span><span class="what">Хостинг. Денежных вложений в проект нет.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap">АРКА 123 · Встречаемся напротив Библиотеки</footer>
+</body>
+</html>
