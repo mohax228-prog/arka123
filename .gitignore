@@ -1,0 +1,5 @@
+node_modules
+dist
+materials
+.DS_Store
+tools/node_modules
