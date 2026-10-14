@@ -12,12 +12,12 @@ gsap.registerPlugin(ScrollTrigger);
 const SHOTS = [
   { video: 'img/tour/v1', count: 78, weight: 1.4 },
   { video: 'img/tour/v2', count: 78, weight: 1.4 },
-  { still: 'img/tour/v2/0078.webp', fx: 0.55, fy: 0.4, weight: 0.6, zoom: 0.3, continues: true },
-  { still: 'img/tour/k4.webp', fx: 0.5, fy: 0.42, weight: 1, zoom: 0.12 },
+  { video: 'img/tour/v3', count: 78, weight: 1.4 },
+  { still: 'img/tour/v3/0078.webp', fx: 0.55, fy: 0.4, weight: 0.6, zoom: 0.08, continues: true },
 ];
 
 // Подписи: [появление, исчезновение] в долях всей прокрутки секции.
-const CAPTIONS = [null, [0.085, 0.18], [0.22, 0.33], [0.46, 0.6], [0.8, null]];
+const CAPTIONS = [null, [0.07, 0.16], [0.2, 0.29], [0.42, 0.55], [0.78, null]];
 
 const loadImage = (src) =>
   new Promise((resolve) => {
