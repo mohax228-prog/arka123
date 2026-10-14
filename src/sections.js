@@ -37,7 +37,7 @@ export function initHeader() {
   });
 }
 
-// Помещение: переключатель рассадки + объёмный наклон сцены за курсором и параллакс при прокрутке.
+// Помещение: переключатель рассадки, параллакс за курсором и появление при прокрутке.
 export function initSpace() {
   const root = document.querySelector('.space');
   const buttons = root.querySelectorAll('.layouts button');
@@ -49,31 +49,29 @@ export function initSpace() {
     }),
   );
 
+  // Лёгкий параллакс: картинка чуть увеличена и смещается за курсором внутри рамки,
+  // запаса по краям (scale 1.08) хватает, чтобы края не открывались.
   const stage = root.querySelector('.stage-inner');
   const imgs = stage.querySelectorAll('img');
+  gsap.set(imgs, { scale: 1.08 });
   if (matchMedia('(hover: hover)').matches) {
-    const rx = gsap.quickTo(stage, 'rotationX', { duration: 0.8, ease: 'power3.out' });
-    const ry = gsap.quickTo(stage, 'rotationY', { duration: 0.8, ease: 'power3.out' });
     const ix = gsap.quickTo(imgs, 'x', { duration: 0.8, ease: 'power3.out' });
     const iy = gsap.quickTo(imgs, 'y', { duration: 0.8, ease: 'power3.out' });
     stage.addEventListener('mousemove', (e) => {
       const r = stage.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      ry(px * 8);
-      rx(-py * 6);
-      ix(-px * 24);
-      iy(-py * 16);
+      ix(-((e.clientX - r.left) / r.width - 0.5) * r.width * 0.05);
+      iy(-((e.clientY - r.top) / r.height - 0.5) * r.height * 0.05);
     });
     stage.addEventListener('mouseleave', () => {
-      rx(0); ry(0); ix(0); iy(0);
+      ix(0);
+      iy(0);
     });
   }
-  gsap.fromTo(stage, { rotationX: 14, scale: 0.92 }, {
-    rotationX: 0,
+  gsap.fromTo(stage, { scale: 0.92, opacity: 0.6 }, {
     scale: 1,
+    opacity: 1,
     ease: 'none',
-    scrollTrigger: { trigger: root.querySelector('.stage'), start: 'top bottom', end: 'top 30%', scrub: true },
+    scrollTrigger: { trigger: root.querySelector('.stage'), start: 'top bottom', end: 'top 40%', scrub: true },
   });
 }
 
@@ -106,4 +104,17 @@ export function initGallery() {
     ease: 'power3.out',
     scrollTrigger: { trigger: grid, start: 'top 85%', once: true },
   });
+}
+
+// Тарифы: выбранная карточка подсвечивается тёмно-синим. На компьютере подсветка следует за курсором
+// и возвращается к выбранной, когда курсор уходит; клик (или тап на телефоне) закрепляет выбор.
+export function initTariffs() {
+  const cards = [...document.querySelectorAll('.tariff')];
+  let selected = cards.find((c) => c.classList.contains('is-active'));
+  const activate = (card) => cards.forEach((c) => c.classList.toggle('is-active', c === card));
+  cards.forEach((card) => {
+    card.addEventListener('click', () => activate((selected = card)));
+    if (matchMedia('(hover: hover)').matches) card.addEventListener('mouseenter', () => activate(card));
+  });
+  document.querySelector('.tariff-grid').addEventListener('mouseleave', () => activate(selected));
 }

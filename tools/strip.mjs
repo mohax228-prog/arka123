@@ -1,0 +1,13 @@
+import { chromium } from 'playwright-core';
+const [url, out] = process.argv.slice(2);
+const b = await chromium.launch({ channel: 'chrome' });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+await p.goto(url); await p.waitForTimeout(7000);
+await p.evaluate(() => document.querySelector('#space .stage').scrollIntoView({ block: 'center' }));
+await p.waitForTimeout(2000);
+await p.click('.layouts button[data-layout="tables"]');
+const r = await p.evaluate(() => { const b = document.querySelector('.stage-inner').getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+await p.mouse.move(r.x + r.w * 0.95, r.y + r.h * 0.5, { steps: 10 });
+await p.waitForTimeout(1500);
+await p.screenshot({ path: out, clip: { x: r.x + r.w * 0.6, y: r.y, width: r.w * 0.42, height: r.h } });
+await b.close();

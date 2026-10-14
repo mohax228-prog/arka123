@@ -146,13 +146,13 @@ img { display: block; max-width: 100%; }
 }
 .layouts button:hover { border-color: var(--navy); }
 .layouts button.is-active { background: var(--navy); color: #fff; border-color: var(--navy); }
-.stage { position: relative; perspective: 1400px; }
+.stage { position: relative; }
 .stage-inner {
   position: relative; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden;
-  transform-style: preserve-3d; will-change: transform; box-shadow: 0 30px 80px -30px rgba(20, 30, 40, 0.45);
+  background: var(--navy); box-shadow: 0 30px 80px -30px rgba(20, 30, 40, 0.45);
 }
 .stage-inner img {
-  position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover;
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   opacity: 0; transition: opacity 0.6s ease;
 }
 .stage-inner img.is-active { opacity: 1; }
@@ -175,15 +175,18 @@ img { display: block; max-width: 100%; }
 .tariff {
   position: relative; display: flex; flex-direction: column; gap: 18px;
   padding: 36px 28px 28px; border: 1px solid rgba(34, 50, 63, 0.15); border-radius: 160px 160px 16px 16px;
-  text-align: center;
+  text-align: center; cursor: pointer;
+  transition: background 0.35s, border-color 0.35s, transform 0.35s;
 }
+.tariff h3, .tariff .price, .tariff ul, .tariff .price small { transition: color 0.35s; }
 .tariff h3 { margin-top: 24px; font: 700 22px/1 var(--font-head); color: var(--navy); }
 .tariff .price { font: 800 48px/1 var(--font-head); color: var(--navy); }
 .tariff .price small { display: block; margin-top: 6px; font: 500 14px/1 var(--font-body); color: var(--muted); }
 .tariff ul { list-style: none; color: var(--muted); font-size: 15px; display: grid; gap: 8px; flex: 1; }
-.tariff-hit { background: var(--navy); border-color: var(--navy); }
-.tariff-hit h3, .tariff-hit .price { color: #fff; }
-.tariff-hit ul, .tariff-hit .price small { color: rgba(255, 255, 255, 0.75); }
+.tariff.is-active { background: var(--navy); border-color: var(--navy); transform: translateY(-6px); }
+.tariff.is-active h3, .tariff.is-active .price { color: #fff; }
+.tariff.is-active ul, .tariff.is-active .price small { color: rgba(255, 255, 255, 0.75); }
+.tariff.is-active .btn-ghost { background: var(--sun); border-color: var(--sun); color: var(--navy); }
 .badge {
   position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
   padding: 6px 12px; border-radius: 999px; background: var(--sun); color: var(--navy);

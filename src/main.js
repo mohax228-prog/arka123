@@ -4,7 +4,7 @@ import Lenis from 'lenis';
 import './style.css';
 import { markSVG } from './logo.js';
 import { runLoader } from './loader.js';
-import { initReveals, initHeader, initSpace, initGallery } from './sections.js';
+import { initReveals, initHeader, initSpace, initGallery, initTariffs } from './sections.js';
 import { initTour } from './tour.js';
 
 // Логотип в шапке: при наведении арка заново прорисовывается,
@@ -35,6 +35,7 @@ initLogoHover(document.querySelector('.logo'));
 initHeader();
 initSpace();
 initGallery();
+initTariffs();
 const startTour = initTour();
 
 const lenis = new Lenis({ autoRaf: true });
