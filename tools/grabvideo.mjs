@@ -1,0 +1,11 @@
+import { chromium } from 'playwright-core';
+const [url] = process.argv.slice(2);
+const b = await chromium.launch({ channel: 'chrome' });
+const p = await b.newPage({ viewport: { width: 1280, height: 900 } });
+const media = new Set();
+p.on('response', r => { const u = r.url(); if (/\.(mp4|webm|m3u8)(\?|$)/i.test(u)) media.add(u); });
+await p.goto(url, { waitUntil: 'networkidle' }).catch(() => {});
+await p.waitForTimeout(5000);
+const srcs = await p.$$eval('video, video source', els => els.map(e => e.currentSrc || e.src).filter(Boolean));
+console.log(JSON.stringify({ srcs, media: [...media] }, null, 1));
+await b.close();
