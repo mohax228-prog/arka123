@@ -180,8 +180,8 @@ img { display: block; max-width: 100%; }
 }
 .tariff h3, .tariff .price, .tariff ul, .tariff .price small { transition: color 0.35s; }
 .tariff h3 { margin-top: 24px; font: 700 22px/1 var(--font-head); color: var(--navy); }
-.tariff .price { font: 800 48px/1 var(--font-head); color: var(--navy); }
-.tariff .price small { display: block; margin-top: 6px; font: 500 14px/1 var(--font-body); color: var(--muted); }
+.tariff .price { font: 800 44px/1 var(--font-head); color: var(--navy); white-space: nowrap; }
+.tariff .price small { display: block; margin-top: 10px; font: 500 16px/1 var(--font-body); color: var(--muted); }
 .tariff ul { list-style: none; color: var(--muted); font-size: 15px; display: grid; gap: 8px; flex: 1; }
 .tariff.is-active { background: var(--navy); border-color: var(--navy); transform: translateY(-6px); }
 .tariff.is-active h3, .tariff.is-active .price { color: #fff; }

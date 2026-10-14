@@ -53,20 +53,20 @@ export function initSpace() {
   // запаса по краям (scale 1.08) хватает, чтобы края не открывались.
   const stage = root.querySelector('.stage-inner');
   const imgs = stage.querySelectorAll('img');
+  // На телефоне без увеличения и анимаций — фото показываются целиком и в полной чёткости.
+  if (!matchMedia('(hover: hover)').matches) return;
   gsap.set(imgs, { scale: 1.08 });
-  if (matchMedia('(hover: hover)').matches) {
-    const ix = gsap.quickTo(imgs, 'x', { duration: 0.8, ease: 'power3.out' });
-    const iy = gsap.quickTo(imgs, 'y', { duration: 0.8, ease: 'power3.out' });
-    stage.addEventListener('mousemove', (e) => {
-      const r = stage.getBoundingClientRect();
-      ix(-((e.clientX - r.left) / r.width - 0.5) * r.width * 0.05);
-      iy(-((e.clientY - r.top) / r.height - 0.5) * r.height * 0.05);
-    });
-    stage.addEventListener('mouseleave', () => {
-      ix(0);
-      iy(0);
-    });
-  }
+  const ix = gsap.quickTo(imgs, 'x', { duration: 0.8, ease: 'power3.out' });
+  const iy = gsap.quickTo(imgs, 'y', { duration: 0.8, ease: 'power3.out' });
+  stage.addEventListener('mousemove', (e) => {
+    const r = stage.getBoundingClientRect();
+    ix(-((e.clientX - r.left) / r.width - 0.5) * r.width * 0.05);
+    iy(-((e.clientY - r.top) / r.height - 0.5) * r.height * 0.05);
+  });
+  stage.addEventListener('mouseleave', () => {
+    ix(0);
+    iy(0);
+  });
   gsap.fromTo(stage, { scale: 0.92, opacity: 0.6 }, {
     scale: 1,
     opacity: 1,
