@@ -6,16 +6,17 @@ gsap.registerPlugin(ScrollTrigger);
 // Фон-экскурсия: героиня встречает у стойки → ведёт по залу → подводит к окну → вид на Библиотеку.
 // Прокрутка управляет «камерой». Экскурсия состоит из планов (shots):
 //  - still: ключевой кадр, камера наезжает к точке фокуса (fx, fy) и перетекает в следующий план;
+//    continues — кадр совпадает с последним кадром предыдущего видео, растворение не нужно;
 //  - video: покадровая последовательность из AI-видео (public/img/tour/<name>/NNNN.webp).
 // weight — какую долю прокрутки занимает план.
 const SHOTS = [
-  { still: 'img/tour/k1.webp', fx: 0.12, fy: 0.42, weight: 1 },
-  { video: 'img/tour/v2', count: 78, weight: 1.6 },
+  { video: 'img/tour/v1', count: 78, weight: 1.6 },
+  { still: 'img/tour/v1/0078.webp', fx: 0.62, fy: 0.36, weight: 0.8, zoom: 0.35, continues: true },
   { still: 'img/tour/k4.webp', fx: 0.5, fy: 0.42, weight: 1, zoom: 0.12 },
 ];
 
 // Подписи: [появление, исчезновение] в долях всей прокрутки секции.
-const CAPTIONS = [null, [0.08, 0.2], [0.3, 0.44], [0.52, 0.68], [0.8, null]];
+const CAPTIONS = [null, [0.06, 0.2], [0.27, 0.4], [0.46, 0.6], [0.78, null]];
 
 const loadImage = (src) =>
   new Promise((resolve) => {
@@ -97,7 +98,7 @@ export async function initTour() {
     // статичный план: камера наезжает
     drawCover(ctx, shot.img, w, h, 1 + (shot.zoom ?? 0.45) * t, shot.fx, shot.fy);
     // после видео — последний кадр видео растворяется в этом плане
-    if (prev?.video && t < 0.4) drawCover(ctx, last(prev), w, h, 1, 0.5, 0.5, 1 - smooth(t / 0.4));
+    if (prev?.video && !shot.continues && t < 0.4) drawCover(ctx, last(prev), w, h, 1, 0.5, 0.5, 1 - smooth(t / 0.4));
     // в конце плана проявляется первый кадр следующего
     if (next && t > 0.55) {
       const e = smooth((t - 0.55) / 0.45);
