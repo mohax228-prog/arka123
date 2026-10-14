@@ -1,0 +1,91 @@
+:root {
+  --navy: #22323f;
+  --navy-2: #2d4254;
+  --cream: #f4efe6;
+  --paper: #fbf8f2;
+  --sun: #f3b76b;
+  --ink: #1b2630;
+  --muted: #5e6b76;
+  --font-head: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Roboto', system-ui, sans-serif;
+  --gutter: clamp(16px, 4vw, 56px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html.is-loading, html.is-loading body { overflow: hidden; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ---------- Лоадер ---------- */
+#loader { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
+.loader-scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+.loader-scene .curtain { fill: var(--cream); }
+.loader-text {
+  position: absolute; left: 0; right: 0; top: calc(50% + 4vmax);
+  text-align: center; color: var(--navy);
+}
+.loader-word {
+  font: 800 clamp(28px, 4vmax, 64px)/1 var(--font-head);
+  letter-spacing: 0.02em;
+  display: inline-flex; overflow: hidden; padding-bottom: 0.08em;
+}
+.loader-word span { display: inline-block; }
+.loader-slogan { margin-top: 10px; font-size: clamp(14px, 1.2vmax, 20px); color: var(--navy-2); }
+.loader-count {
+  position: absolute; right: var(--gutter); bottom: 28px;
+  font: 600 14px/1 var(--font-head); color: var(--muted); letter-spacing: 0.08em;
+}
+.loader-count b { font-size: 28px; color: var(--navy); font-variant-numeric: tabular-nums; }
+
+/* ---------- Шапка ---------- */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 14px var(--gutter);
+  color: #fff;
+}
+.logo { display: inline-flex; align-items: center; gap: 12px; }
+.logo .mark { width: 44px; height: 50px; background: var(--paper); border-radius: 22px 22px 3px 3px; padding: 3px 3px 0; }
+.logo .mark .digit { transform-box: fill-box; }
+.logo-text { font: 800 20px/1 var(--font-head); letter-spacing: 0.02em; }
+.nav { display: flex; gap: 28px; font: 500 15px/1 var(--font-head); }
+.nav a { opacity: 0.85; transition: opacity 0.2s; }
+.nav a:hover { opacity: 1; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 14px 26px; border-radius: 999px;
+  font: 700 15px/1 var(--font-head); letter-spacing: 0.02em;
+  background: var(--sun); color: var(--navy);
+  transition: transform 0.2s, background 0.2s;
+}
+.btn:hover { transform: translateY(-2px); background: #f6c88a; }
+@media (max-width: 860px) { .nav { display: none; } .header .btn { padding: 11px 18px; } }
+
+/* ---------- Первый экран ---------- */
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; align-items: flex-end;
+  padding: 120px var(--gutter) clamp(40px, 8vh, 96px);
+  color: #fff; overflow: hidden;
+}
+.hero-bg { position: absolute; inset: 0; z-index: -1; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(20, 30, 40, 0.55) 0%, rgba(20, 30, 40, 0.1) 35%, rgba(20, 30, 40, 0.75) 100%);
+}
+.hero-kicker { font: 600 14px/1 var(--font-head); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; }
+.hero h1 {
+  margin: 18px 0 20px; max-width: 14ch;
+  font: 800 clamp(40px, 7vw, 104px)/0.98 var(--font-head); letter-spacing: -0.01em;
+}
+.hero p { max-width: 46ch; font-size: clamp(16px, 1.4vw, 20px); opacity: 0.9; margin-bottom: 32px; }
+
+.section { padding: clamp(64px, 10vw, 140px) var(--gutter); }
+.section h2 { font: 800 clamp(30px, 4vw, 56px)/1.05 var(--font-head); color: var(--navy); margin-bottom: 20px; }

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="270 240 712 806" fill="none" stroke="#22323F" stroke-width="54" stroke-linejoin="miter">
+  <path class="frame" d="M465.5 1001 H315 V595 A310.5 310.5 0 0 1 936 595 V1001 H465.5"/>
+  <path class="d1 stem" d="M465.5 1001 V562"/>
+  <path class="d1 flag" fill="#22323F" stroke="none" d="M372 621 L422 562 H493 V621 Z"/>
+  <path class="d2" d="M540 662 V641 A61.5 61.5 0 0 1 663 641 C663 662 655 676 644 692 L540 840 V873 H669"/>
+  <path class="d3" stroke-linejoin="bevel" d="M704 585 H849 L759 714 A79 79 0 1 1 701 796"/>
+</svg>
