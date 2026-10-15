@@ -105,6 +105,13 @@
     .tools .what { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
 
     footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+    @media print {
+      @page { size: A4; margin: 0; }
+      html, body { background: var(--paper); }
+      section { padding-top: 36px; }
+      .num, h2, h3 { break-after: avoid; }
+      li, p, .note, .tools li, tr, table { break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
